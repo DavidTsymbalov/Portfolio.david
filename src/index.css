@@ -51,9 +51,18 @@
     @apply mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-12 xl:max-w-[84rem];
   }
 
+  .font-notevault {
+    font-family: 'Tiempos Text', Newsreader, Georgia, serif;
+    font-weight: 400;
+  }
+
+  .project-card {
+    @apply bg-white/70 dark:bg-neutral-950/50;
+  }
+
   .nav-inner {
-    padding-top: max(0.5rem, env(safe-area-inset-top));
-    @apply page-wrap flex items-center justify-between gap-4 py-3 md:py-3.5 lg:py-4;
+    padding-top: max(0.35rem, env(safe-area-inset-top));
+    @apply page-wrap flex items-center justify-between gap-4 py-2 md:py-2.5 lg:py-3;
   }
 
   .section-num {
@@ -163,18 +172,18 @@
   }
 
   .nav-offset {
-    padding-top: calc(4.75rem + env(safe-area-inset-top, 0px));
+    padding-top: calc(4.25rem + env(safe-area-inset-top, 0px));
   }
 
   @media (min-width: 768px) {
     .nav-offset {
-      padding-top: calc(5.25rem + env(safe-area-inset-top, 0px));
+      padding-top: calc(4.75rem + env(safe-area-inset-top, 0px));
     }
   }
 
   @media (min-width: 1024px) {
     .nav-offset {
-      padding-top: calc(5.5rem + env(safe-area-inset-top, 0px));
+      padding-top: calc(5rem + env(safe-area-inset-top, 0px));
     }
   }
 }

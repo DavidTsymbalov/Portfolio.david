@@ -57,9 +57,19 @@ export const translations = {
     },
     projects: {
       title: 'Projects',
-      bodyBefore: 'This section is being prepared. If you already have a brief,',
-      link: 'message me on Telegram',
-      bodyAfter: '— we can go over the details.',
+      intro: 'Selected work. More case studies coming soon.',
+      notevault: {
+        name: 'NoteVault',
+        role: 'Lead Product Designer',
+        expand: 'Expand',
+        collapse: 'Collapse',
+        description:
+          'A notes app that brings order to your thoughts — notes, journals, and projects in one clean system. Smart reminders for unfinished notes, clear structure, and AI-assisted tools for faster capture and organization.',
+        credit:
+          'Responsible for the full product design: visual identity, UX flows, and interface architecture.',
+        channelLabel: 'Telegram',
+        channel: 'notevaultt',
+      },
     },
     contact: {
       title: 'Contact',
@@ -126,9 +136,19 @@ export const translations = {
     },
     projects: {
       title: 'Проекты',
-      bodyBefore: 'Раздел находится в подготовке. Если у вас уже есть задача,',
-      link: 'свяжитесь со мной в Telegram',
-      bodyAfter: '— обсудим детали.',
+      intro: 'Избранные проекты. Подробные кейсы появятся здесь позже.',
+      notevault: {
+        name: 'NoteVault',
+        role: 'Ведущий продуктовый дизайнер',
+        expand: 'Раскрыть',
+        collapse: 'Свернуть',
+        description:
+          'Приложение для заметок, которое приводит мысли в порядок: обычные заметки, дневники и проекты в одной системе. Уведомления о незавершённых заметках, понятная структура и AI-инструменты для быстрой фиксации и организации.',
+        credit:
+          'Отвечал за дизайн продукта целиком: визуальная идентичность, UX-сценарии и архитектура интерфейса.',
+        channelLabel: 'Telegram',
+        channel: 'notevaultt',
+      },
     },
     contact: {
       title: 'Контакты',

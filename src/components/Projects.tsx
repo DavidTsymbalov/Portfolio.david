@@ -1,5 +1,6 @@
 import SectionWithShapes from './SectionWithShapes'
 import { RevealGroup, RevealItem, RevealNumber } from './Reveal'
+import ProjectCard from './ProjectCard'
 import { projectsClusters } from '../config/shapes'
 import { useT } from '../context/LanguageContext'
 
@@ -18,15 +19,10 @@ export default function Projects() {
             <h2 className="section-title mb-6 sm:mb-8">{t.projects.title}</h2>
           </RevealItem>
           <RevealItem>
-            <p className="body-text">
-              {t.projects.bodyBefore}
-              {' '}
-              <a href="#contact" className="link-underline">
-                {t.projects.link}
-              </a>
-              {' '}
-              {t.projects.bodyAfter}
-            </p>
+            <p className="body-text mb-8 sm:mb-10">{t.projects.intro}</p>
+          </RevealItem>
+          <RevealItem>
+            <ProjectCard />
           </RevealItem>
         </RevealGroup>
       </div>

@@ -73,7 +73,7 @@ export default function Navbar() {
           <button
             onClick={toggleTheme}
             aria-label={t.nav.themeToggle}
-            className="flex h-9 w-9 items-center justify-center rounded-full text-base text-neutral-500 transition-colors hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-800"
+            className="flex h-8 w-8 items-center justify-center rounded-full text-base text-neutral-500 transition-colors hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-800"
           >
             {theme === 'dark' ? '☀' : '☾'}
           </button>
@@ -114,7 +114,7 @@ export default function Navbar() {
 
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
-            className="flex h-9 w-9 items-center justify-center rounded-full text-lg text-neutral-600 transition-colors hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-800 md:hidden"
+            className="flex h-8 w-8 items-center justify-center rounded-full text-lg text-neutral-600 transition-colors hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-800 md:hidden"
             aria-label={t.nav.menu}
             aria-expanded={mobileOpen}
           >

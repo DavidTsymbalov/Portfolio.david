@@ -17,6 +17,7 @@ export default {
       fontFamily: {
         sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
         display: ['Syne', 'system-ui', 'sans-serif'],
+        notevault: ['"Tiempos Text"', 'Newsreader', 'Georgia', 'serif'],
       },
     },
   },

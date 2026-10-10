@@ -13,6 +13,7 @@ const skills = [
   'Node.js',
   'PostgreSQL',
   'Tailwind CSS',
+  'Figma',
   'Git',
   'Docker',
 ]
