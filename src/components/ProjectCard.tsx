@@ -54,14 +54,33 @@ export default function ProjectCard() {
               <p className="text-sm leading-relaxed text-neutral-500 dark:text-neutral-400">
                 {p.credit}
               </p>
-              <a
-                href="https://t.me/notevaultt"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="link-underline inline-flex text-sm sm:text-[0.95rem]"
-              >
-                {p.channelLabel} @{p.channel}
-              </a>
+
+              <ul className="flex flex-wrap gap-2">
+                {p.stack.map((skill) => (
+                  <li key={skill}>
+                    <span className="skill-tag project-skill font-medium">{skill}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-6 sm:gap-y-2">
+                <a
+                  href={p.figmaUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="project-link text-sm sm:text-[0.95rem]"
+                >
+                  {p.figmaLink}
+                </a>
+                <a
+                  href="https://t.me/notevaultt"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="link-underline inline-flex text-sm sm:text-[0.95rem]"
+                >
+                  {p.channelLabel} @{p.channel}
+                </a>
+              </div>
             </div>
           </motion.div>
         )}

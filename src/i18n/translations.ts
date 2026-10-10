@@ -67,7 +67,12 @@ export const translations = {
           'A notes app that brings order to your thoughts — notes, journals, and projects in one clean system. Smart reminders for unfinished notes, clear structure, and AI-assisted tools for faster capture and organization.',
         credit:
           'Responsible for the full product design: visual identity, UX flows, and interface architecture.',
-        channelLabel: 'Telegram',
+        stackLabel: 'Stack',
+        stack: ['Figma'],
+        figmaLink: 'View project in Figma',
+        figmaUrl:
+          'https://www.figma.com/design/AZwrF6rGbF8PMlP0MnJxG7/Untitled?node-id=0-1&t=LVmK3nn8qjJm8Gmr-1',
+        channelLabel: 'Project Telegram',
         channel: 'notevaultt',
       },
     },
@@ -146,7 +151,12 @@ export const translations = {
           'Приложение для заметок, которое приводит мысли в порядок: обычные заметки, дневники и проекты в одной системе. Уведомления о незавершённых заметках, понятная структура и AI-инструменты для быстрой фиксации и организации.',
         credit:
           'Отвечал за дизайн продукта целиком: визуальная идентичность, UX-сценарии и архитектура интерфейса.',
-        channelLabel: 'Telegram',
+        stackLabel: 'Стек',
+        stack: ['Figma'],
+        figmaLink: 'Смотреть проект в Figma',
+        figmaUrl:
+          'https://www.figma.com/design/AZwrF6rGbF8PMlP0MnJxG7/Untitled?node-id=0-1&t=LVmK3nn8qjJm8Gmr-1',
+        channelLabel: 'Telegram проекта',
         channel: 'notevaultt',
       },
     },
