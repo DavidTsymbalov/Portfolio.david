@@ -28,7 +28,7 @@ export default function Contact() {
           </RevealItem>
           <RevealItem>
             <a
-              href="https://t.me/DavidTsymbalovWork"
+              href="https://t.me/DavidTsymbalov"
               target="_blank"
               rel="noopener noreferrer"
               className="btn-main w-full sm:w-auto"

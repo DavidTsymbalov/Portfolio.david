@@ -74,7 +74,7 @@ export const translations = {
     contact: {
       title: 'Contact',
       lead: 'Describe the task briefly — I will reply, say whether I can help, and outline timelines and cost.',
-      handle: '@DavidTsymbalovWork',
+      handle: '@DavidTsymbalov',
     },
     footer: {
       telegram: 'Telegram',
@@ -153,7 +153,7 @@ export const translations = {
     contact: {
       title: 'Контакты',
       lead: 'Опишите задачу кратко — я отвечу и сообщу, смогу ли помочь, а также уточню сроки и стоимость.',
-      handle: '@DavidTsymbalovWork',
+      handle: '@DavidTsymbalov',
     },
     footer: {
       telegram: 'Telegram',

@@ -34,7 +34,7 @@ export default function Hero() {
                 {t.hero.cta}
               </a>
               <a
-                href="https://t.me/DavidTsymbalovWork"
+                href="https://t.me/DavidTsymbalov"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="link-underline flex min-h-[48px] items-center justify-center text-base sm:min-h-0 sm:justify-start sm:text-[0.95rem] lg:text-base"
