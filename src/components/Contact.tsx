@@ -1,8 +1,11 @@
 import SectionWithShapes from './SectionWithShapes'
 import { RevealGroup, RevealItem, RevealNumber } from './Reveal'
 import { contactClusters } from '../config/shapes'
+import { useT } from '../context/LanguageContext'
 
 export default function Contact() {
+  const t = useT()
+
   return (
     <SectionWithShapes
       id="contact"
@@ -16,12 +19,11 @@ export default function Contact() {
 
         <RevealGroup>
           <RevealItem>
-            <h2 className="section-title mb-5 sm:mb-6">Контакты</h2>
+            <h2 className="section-title mb-5 sm:mb-6">{t.contact.title}</h2>
           </RevealItem>
           <RevealItem>
             <p className="body-text mb-8 max-w-sm sm:mb-10 lg:max-w-md">
-              Опишите задачу кратко — я отвечу и сообщу, смогу ли помочь, а также
-              уточню сроки и стоимость.
+              {t.contact.lead}
             </p>
           </RevealItem>
           <RevealItem>
@@ -31,7 +33,7 @@ export default function Contact() {
               rel="noopener noreferrer"
               className="btn-main w-full sm:w-auto"
             >
-              @DavidTsymbalovWork
+              {t.contact.handle}
             </a>
           </RevealItem>
         </RevealGroup>

@@ -1,4 +1,7 @@
+import { useT } from '../context/LanguageContext'
+
 export default function Footer() {
+  const t = useT()
   const year = new Date().getFullYear()
 
   return (
@@ -14,7 +17,7 @@ export default function Footer() {
           rel="noopener noreferrer"
           className="link-underline w-fit decoration-neutral-500"
         >
-          Telegram
+          {t.footer.telegram}
         </a>
       </div>
     </footer>

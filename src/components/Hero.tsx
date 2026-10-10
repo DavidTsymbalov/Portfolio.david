@@ -1,8 +1,11 @@
 import SectionWithShapes from './SectionWithShapes'
 import { RevealGroup, RevealItem } from './Reveal'
 import { heroClusters } from '../config/shapes'
+import { useT } from '../context/LanguageContext'
 
 export default function Hero() {
+  const t = useT()
+
   return (
     <SectionWithShapes
       id="home"
@@ -21,15 +24,14 @@ export default function Hero() {
 
           <RevealItem>
             <p className="body-text mt-6 max-w-md sm:mt-8 lg:max-w-lg">
-              Разрабатываю проекты под ключ — от лендингов до веб-приложений.
-              Буду рад обсудить вашу задачу.
+              {t.hero.lead}
             </p>
           </RevealItem>
 
           <RevealItem>
             <div className="mt-8 flex flex-col gap-4 sm:mt-10 sm:flex-row sm:flex-wrap sm:items-center sm:gap-6">
               <a href="#contact" className="btn-main w-full sm:w-auto">
-                Связаться
+                {t.hero.cta}
               </a>
               <a
                 href="https://t.me/DavidTsymbalovWork"
@@ -37,7 +39,7 @@ export default function Hero() {
                 rel="noopener noreferrer"
                 className="link-underline flex min-h-[48px] items-center justify-center text-base sm:min-h-0 sm:justify-start sm:text-[0.95rem] lg:text-base"
               >
-                Telegram
+                {t.hero.telegram}
               </a>
             </div>
           </RevealItem>

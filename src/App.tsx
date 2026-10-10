@@ -1,4 +1,5 @@
 import { ThemeProvider } from './context/ThemeContext'
+import { LanguageProvider } from './context/LanguageContext'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import About from './components/About'
@@ -11,18 +12,20 @@ import Footer from './components/Footer'
 export default function App() {
   return (
     <ThemeProvider>
-      <div className="site-grain min-h-screen">
-        <Navbar />
-        <main>
-          <Hero />
-          <About />
-          <Work />
-          <Skills />
-          <Projects />
-          <Contact />
-        </main>
-        <Footer />
-      </div>
+      <LanguageProvider>
+        <div className="site-grain min-h-screen">
+          <Navbar />
+          <main>
+            <Hero />
+            <About />
+            <Work />
+            <Skills />
+            <Projects />
+            <Contact />
+          </main>
+          <Footer />
+        </div>
+      </LanguageProvider>
     </ThemeProvider>
   )
 }

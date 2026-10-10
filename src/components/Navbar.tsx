@@ -1,18 +1,21 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useTheme } from '../context/ThemeContext'
-
-const navLinks = [
-  { href: '#about', label: 'Обо мне' },
-  { href: '#skills', label: 'Навыки' },
-  { href: '#projects', label: 'Проекты' },
-  { href: '#contact', label: 'Контакты' },
-]
+import { useLanguage } from '../context/LanguageContext'
+import type { Lang } from '../i18n/translations'
 
 export default function Navbar() {
   const { theme, toggleTheme } = useTheme()
+  const { lang, setLang, t } = useLanguage()
   const [mobileOpen, setMobileOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+
+  const navLinks = [
+    { href: '#about', label: t.nav.about },
+    { href: '#skills', label: t.nav.skills },
+    { href: '#projects', label: t.nav.projects },
+    { href: '#contact', label: t.nav.contact },
+  ]
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
@@ -31,6 +34,10 @@ export default function Navbar() {
       ? 'border-b border-subtle bg-[#0c0c0c]/88 backdrop-blur-lg'
       : 'border-b border-subtle bg-[#f2f1ed]/88 backdrop-blur-lg'
     : 'bg-transparent'
+
+  const switchLang = (next: Lang) => {
+    if (next !== lang) setLang(next)
+  }
 
   return (
     <motion.header
@@ -65,16 +72,50 @@ export default function Navbar() {
         <div className="flex items-center gap-2">
           <button
             onClick={toggleTheme}
-            aria-label="Переключить тему"
+            aria-label={t.nav.themeToggle}
             className="flex h-9 w-9 items-center justify-center rounded-full text-base text-neutral-500 transition-colors hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-800"
           >
             {theme === 'dark' ? '☀' : '☾'}
           </button>
 
+          <div
+            role="group"
+            aria-label={t.nav.langSwitch}
+            className="flex items-center gap-1 text-[0.7rem] font-semibold tracking-wide sm:text-[0.75rem]"
+          >
+            <button
+              type="button"
+              onClick={() => switchLang('en')}
+              aria-pressed={lang === 'en'}
+              className={`rounded px-1.5 py-1 transition-colors ${
+                lang === 'en'
+                  ? 'text-ink dark:text-white'
+                  : 'text-neutral-400 hover:text-neutral-600 dark:text-neutral-500 dark:hover:text-neutral-300'
+              }`}
+            >
+              {t.nav.langEn}
+            </button>
+            <span className="text-neutral-300 dark:text-neutral-600" aria-hidden="true">
+              |
+            </span>
+            <button
+              type="button"
+              onClick={() => switchLang('ru')}
+              aria-pressed={lang === 'ru'}
+              className={`rounded px-1.5 py-1 transition-colors ${
+                lang === 'ru'
+                  ? 'text-ink dark:text-white'
+                  : 'text-neutral-400 hover:text-neutral-600 dark:text-neutral-500 dark:hover:text-neutral-300'
+              }`}
+            >
+              {t.nav.langRu}
+            </button>
+          </div>
+
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
             className="flex h-9 w-9 items-center justify-center rounded-full text-lg text-neutral-600 transition-colors hover:bg-neutral-100 dark:text-neutral-400 dark:hover:bg-neutral-800 md:hidden"
-            aria-label="Меню"
+            aria-label={t.nav.menu}
             aria-expanded={mobileOpen}
           >
             {mobileOpen ? '✕' : '≡'}

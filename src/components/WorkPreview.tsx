@@ -1,15 +1,17 @@
 import { useState } from 'react'
+import { useT } from '../context/LanguageContext'
 
 const IMAGE_SRC = '/images/Programms.png'
 
 export default function WorkPreview() {
+  const t = useT()
   const [loaded, setLoaded] = useState(false)
   const [error, setError] = useState(false)
 
   if (error) {
     return (
       <div className="work-preview-placeholder">
-        <p>Добавь файл</p>
+        <p>{t.work.previewPlaceholder}</p>
         <code>public/images/Programms.png</code>
       </div>
     )
@@ -19,7 +21,7 @@ export default function WorkPreview() {
     <div className="work-preview">
       <img
         src={IMAGE_SRC}
-        alt="Рабочий процесс — код проекта в редакторе"
+        alt={t.work.previewAlt}
         className={`work-preview-img ${loaded ? 'is-visible' : ''}`}
         loading="lazy"
         decoding="async"

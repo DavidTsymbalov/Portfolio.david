@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import SectionWithShapes from './SectionWithShapes'
 import { RevealGroup, RevealItem, RevealNumber, itemVariant } from './Reveal'
 import { skillsClusters } from '../config/shapes'
+import { useT } from '../context/LanguageContext'
 
 const skills = [
   'TypeScript',
@@ -17,6 +18,8 @@ const skills = [
 ]
 
 export default function Skills() {
+  const t = useT()
+
   return (
     <SectionWithShapes id="skills" clusters={skillsClusters} className="section-pad border-t border-subtle">
       <div className="section-grid">
@@ -26,7 +29,7 @@ export default function Skills() {
 
         <RevealGroup>
           <RevealItem>
-            <h2 className="section-title mb-8 sm:mb-10">Навыки</h2>
+            <h2 className="section-title mb-8 sm:mb-10">{t.skills.title}</h2>
           </RevealItem>
           <motion.ul
             className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3"
