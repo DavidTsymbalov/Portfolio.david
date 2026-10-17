@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useT } from '../context/LanguageContext'
 
-const IMAGE_SRC = '/images/Programms.png'
+const IMAGE_SRC = `${import.meta.env.BASE_URL}images/Programms.png`
 
 export default function WorkPreview() {
   const t = useT()

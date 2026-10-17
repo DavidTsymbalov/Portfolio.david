@@ -16,7 +16,7 @@ export default function ProjectCard() {
         className="flex w-full items-center gap-3 px-4 py-4 text-left transition-colors hover:bg-neutral-100/70 dark:hover:bg-neutral-900/60 sm:gap-4 sm:px-5 sm:py-5"
       >
         <img
-          src="/images/notevault-logo.png"
+          src={`${import.meta.env.BASE_URL}images/notevault-logo.png`}
           alt=""
           width={44}
           height={44}

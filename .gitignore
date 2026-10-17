@@ -7,3 +7,5 @@ dist
 !.env.example
 tsconfig.tsbuildinfo
 .vite
+timeweb-dist.zip
+build-log.txt
