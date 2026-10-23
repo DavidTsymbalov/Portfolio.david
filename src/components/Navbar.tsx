@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { useTheme } from '../context/ThemeContext'
 import { useLanguage } from '../context/LanguageContext'
 import type { Lang } from '../i18n/translations'
+import ScrambleText from './ScrambleText'
 
 export default function Navbar() {
   const { theme, toggleTheme } = useTheme()
@@ -62,9 +63,9 @@ export default function Navbar() {
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.45, delay: 0.15 + i * 0.07, ease: [0.22, 1, 0.36, 1] }}
-              className="text-[0.95rem] font-medium text-neutral-500 transition-colors hover:text-ink dark:text-neutral-400 dark:hover:text-white lg:text-base"
+              className="inline-block min-w-[4.5rem] text-[0.95rem] font-medium text-neutral-500 transition-colors hover:text-ink dark:text-neutral-400 dark:hover:text-white lg:min-w-[5rem] lg:text-base"
             >
-              {link.label}
+              <ScrambleText text={link.label} />
             </motion.a>
           ))}
         </div>
@@ -143,7 +144,7 @@ export default function Navbar() {
                   onClick={() => setMobileOpen(false)}
                   className="flex min-h-[48px] items-center text-base font-medium text-neutral-700 dark:text-neutral-300"
                 >
-                  {link.label}
+                  <ScrambleText text={link.label} hoverDuration={360} swapDuration={240} />
                 </motion.a>
               ))}
             </div>
