@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { runScramble } from '../lib/scramble'
+import { LANG_SCRAMBLE_EVENT, runScramble } from '../lib/scramble'
 
 type Props = {
   text: string
@@ -47,6 +47,13 @@ export default function ScrambleText({
       return () => window.clearTimeout(id)
     }
   }, [text, onLangChange])
+
+  useEffect(() => {
+    if (!onLangChange) return
+    const onEvent = () => play(400)
+    window.addEventListener(LANG_SCRAMBLE_EVENT, onEvent)
+    return () => window.removeEventListener(LANG_SCRAMBLE_EVENT, onEvent)
+  }, [onLangChange])
 
   useEffect(() => () => cancelRef.current?.(), [])
 

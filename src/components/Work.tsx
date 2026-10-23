@@ -24,8 +24,8 @@ export default function Work() {
               <p className="body-text mb-8 max-w-md">{t.work.lead}</p>
             </RevealItem>
 
-            {t.work.points.map((point) => (
-              <RevealItem key={point.title}>
+            {t.work.points.map((point, i) => (
+              <RevealItem key={`work-point-${i}`}>
                 <div className="mb-5 border-l-2 border-neutral-300 pl-4 dark:border-neutral-700 sm:pl-5">
                   <p className="mb-1 font-medium">{point.title}</p>
                   <p className="text-[0.95rem] leading-relaxed text-neutral-600 dark:text-neutral-400 sm:text-base">
