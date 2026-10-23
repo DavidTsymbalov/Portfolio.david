@@ -1,72 +1,72 @@
-/** Pools of similar-looking glyphs (prefer lowercase / symbols, not CAPS). */
+/** Similar-looking letters only (lowercase Latin / Cyrillic) — no symbols or digits. */
 const LOOKALIKES: Record<string, string> = {
-  a: 'a@αд4',
-  b: 'b6ß',
-  c: 'cсç¢',
-  d: 'dđ',
-  e: 'eе3€',
-  f: 'fƒ',
-  g: 'g9q',
-  h: 'hн#',
-  i: 'iі1!|',
-  j: 'jј',
-  k: 'kк*',
-  l: 'l1|ł',
-  m: 'mм',
-  n: 'nпñ',
-  o: 'oо0ø',
-  p: 'pр',
-  q: 'q9g',
-  r: 'rг',
-  s: 'sѕ5$',
-  t: 'tт+',
-  u: 'uиµ',
-  v: 'vν',
-  w: 'wшω',
-  x: 'x×х',
-  y: 'yу¥',
-  z: 'z2',
-  а: 'a@αд4',
-  б: 'b6',
-  в: 'bв',
-  г: 'rг',
-  д: 'dд',
-  е: 'eе3',
-  ж: 'xж',
-  з: '3з',
-  и: 'uи',
-  й: 'uй',
-  к: 'kк*',
-  л: 'nл',
-  м: 'mм',
-  н: 'hн#',
-  о: 'oо0',
-  п: 'nп',
-  р: 'pр',
-  с: 'cсç',
-  т: 'tт+',
-  у: 'yу',
-  ф: 'fф',
-  х: 'xх',
-  ц: 'uц',
-  ч: 'yч',
-  ш: 'wш',
-  щ: 'wщ',
-  ъ: 'bъ',
-  ы: 'bы',
-  ь: 'bь',
-  э: 'eэ',
-  ю: 'uю',
-  я: 'rя',
+  a: 'aадeo',
+  b: 'bьвъд',
+  c: 'cсeo',
+  d: 'dдрб',
+  e: 'eеас',
+  f: 'fрт',
+  g: 'gqyp',
+  h: 'hнпb',
+  i: 'iіlj',
+  j: 'jiуl',
+  k: 'kкxи',
+  l: 'liіj',
+  m: 'mмнw',
+  n: 'nпмh',
+  o: 'oоace',
+  p: 'pрgq',
+  q: 'qgpb',
+  r: 'rгkx',
+  s: 'sсzе',
+  t: 'tтfr',
+  u: 'uиуй',
+  v: 'vуwи',
+  w: 'wшмv',
+  x: 'xхkж',
+  y: 'yугv',
+  z: 'zsеc',
+  а: 'аaедo',
+  б: 'бbьд',
+  в: 'вbьъ',
+  г: 'гrт',
+  д: 'дdаб',
+  е: 'еeaс',
+  ж: 'жxк',
+  з: 'зsе',
+  и: 'иuйн',
+  й: 'йиuу',
+  к: 'кkxи',
+  л: 'лnп',
+  м: 'ммнw',
+  н: 'нhпи',
+  о: 'оoaе',
+  п: 'пnнh',
+  р: 'рpо',
+  с: 'сcеs',
+  т: 'ттгr',
+  у: 'уyйи',
+  ф: 'фop',
+  х: 'хxк',
+  ц: 'цуи',
+  ч: 'чуy',
+  ш: 'шwмщ',
+  щ: 'щшw',
+  ъ: 'ъьb',
+  ы: 'ыьи',
+  ь: 'ьъb',
+  э: 'эеe',
+  ю: 'юuи',
+  я: 'яrа',
 }
 
-const FALLBACK = 'abcdefghijklmnopqrstuvwxyz0123456789*#@&%+=~'
+const FALLBACK = 'abcdefghijklmnopqrstuvwxyzабвгдежзийклмнопрстуфхцчшщыэюя'
 
 export function scrambleChar(char: string): string {
   if (!char.trim()) return char
-  if (/[0-9]/.test(char)) {
-    return '0123456789*#+'[Math.floor(Math.random() * 12)]
-  }
+  // Keep digits/punctuation as-is; only scramble letters
+  if (!/\p{L}/u.test(char)) return char
+
   const key = char.toLowerCase()
   const pool = LOOKALIKES[key] ?? FALLBACK
   return pool[Math.floor(Math.random() * pool.length)]
@@ -77,11 +77,8 @@ export function scrambleText(text: string): string {
 }
 
 export type ScrambleOptions = {
-  /** Total animation duration in ms */
   duration?: number
-  /** How often to refresh glyphs */
   interval?: number
-  /** Chance a character is already revealed toward the end */
   onFrame?: (value: string) => void
 }
 
@@ -100,7 +97,6 @@ export function runScramble(
     if (cancelled) return
     const elapsed = performance.now() - started
     const progress = Math.min(1, elapsed / duration)
-    // Reveal left→right as we progress
     const revealCount = Math.floor(progress * chars.length)
 
     const next = chars
