@@ -57,16 +57,21 @@ export default function Navbar() {
 
         <div className="hidden items-center gap-8 md:flex lg:gap-12">
           {navLinks.map((link, i) => (
-            <motion.a
+            <motion.div
               key={link.href}
-              href={link.href}
               initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.45, delay: 0.15 + i * 0.07, ease: [0.22, 1, 0.36, 1] }}
-              className="inline-block min-w-[4.5rem] text-[0.95rem] font-medium text-neutral-500 transition-colors hover:text-ink dark:text-neutral-400 dark:hover:text-white lg:min-w-[5rem] lg:text-base"
             >
-              <ScrambleText text={link.label} />
-            </motion.a>
+              <ScrambleText
+                as="a"
+                href={link.href}
+                text={link.label}
+                hover
+                onLangChange
+                className="text-[0.95rem] font-medium text-neutral-500 transition-colors hover:text-ink dark:text-neutral-400 dark:hover:text-white lg:text-base"
+              />
+            </motion.div>
           ))}
         </div>
 
@@ -82,6 +87,7 @@ export default function Navbar() {
           <div
             role="group"
             aria-label={t.nav.langSwitch}
+            data-no-scramble
             className="flex items-center gap-1 text-[0.7rem] font-semibold tracking-wide sm:text-[0.75rem]"
           >
             <button
@@ -133,7 +139,7 @@ export default function Navbar() {
             className="border-t border-subtle bg-surface dark:bg-surface-dark md:hidden"
             style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
           >
-            <div className="page-wrap flex flex-col py-3">
+            <div className="page-wrap flex flex-col py-3" data-no-scramble>
               {navLinks.map((link, i) => (
                 <motion.a
                   key={link.href}
@@ -144,7 +150,7 @@ export default function Navbar() {
                   onClick={() => setMobileOpen(false)}
                   className="flex min-h-[48px] items-center text-base font-medium text-neutral-700 dark:text-neutral-300"
                 >
-                  <ScrambleText text={link.label} hoverDuration={360} swapDuration={240} />
+                  <ScrambleText text={link.label} onLangChange />
                 </motion.a>
               ))}
             </div>

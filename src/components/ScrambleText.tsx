@@ -1,101 +1,80 @@
 import { useEffect, useRef, useState } from 'react'
-
-const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-
-function randomChar() {
-  return CHARS[Math.floor(Math.random() * CHARS.length)]
-}
+import { runScramble } from '../lib/scramble'
 
 type Props = {
   text: string
   className?: string
-  /** Hover scramble duration (ms) */
-  hoverDuration?: number
-  /** Language-change scramble duration (ms) */
-  swapDuration?: number
+  /** Scramble on pointer hover (nav links) */
+  hover?: boolean
+  /** Scramble when the text itself changes (language switch) */
+  onLangChange?: boolean
+  as?: 'span' | 'a'
+  href?: string
 }
 
 export default function ScrambleText({
   text,
   className,
-  hoverDuration = 420,
-  swapDuration = 260,
+  hover = false,
+  onLangChange = false,
+  as = 'span',
+  href,
 }: Props) {
   const [display, setDisplay] = useState(text)
-  const frameRef = useRef<number | null>(null)
-  const runningRef = useRef(false)
-  const targetRef = useRef(text)
-  const prevTextRef = useRef(text)
-  const mountedRef = useRef(false)
+  const cancelRef = useRef<(() => void) | null>(null)
+  const textRef = useRef(text)
+  const readyRef = useRef(false)
+  textRef.current = text
 
-  const stop = () => {
-    if (frameRef.current !== null) {
-      cancelAnimationFrame(frameRef.current)
-      frameRef.current = null
-    }
-    runningRef.current = false
+  const play = (duration: number) => {
+    cancelRef.current?.()
+    cancelRef.current = runScramble(textRef.current, {
+      duration,
+      interval: 24,
+      onFrame: setDisplay,
+    })
   }
 
-  const scrambleTo = (target: string, duration: number) => {
-    stop()
-    targetRef.current = target
-    runningRef.current = true
-    const start = performance.now()
-
-    const tick = (now: number) => {
-      if (!runningRef.current) return
-      const progress = Math.min(1, (now - start) / duration)
-      const reveal = Math.floor(progress * target.length)
-
-      let next = ''
-      for (let i = 0; i < target.length; i++) {
-        if (i < reveal) {
-          next += target[i]
-        } else {
-          next += target[i] === ' ' ? ' ' : randomChar()
-        }
-      }
-
-      setDisplay(next)
-
-      if (progress < 1) {
-        frameRef.current = requestAnimationFrame(tick)
-      } else {
-        setDisplay(target)
-        runningRef.current = false
-        frameRef.current = null
-      }
-    }
-
-    frameRef.current = requestAnimationFrame(tick)
-  }
-
-  // Fast scramble when language label changes
   useEffect(() => {
-    if (!mountedRef.current) {
-      mountedRef.current = true
-      prevTextRef.current = text
-      targetRef.current = text
-      setDisplay(text)
+    cancelRef.current?.()
+    setDisplay(text)
+    if (!readyRef.current) {
+      readyRef.current = true
       return
     }
+    if (onLangChange) {
+      const id = window.setTimeout(() => play(400), 20)
+      return () => window.clearTimeout(id)
+    }
+  }, [text, onLangChange])
 
-    if (text === prevTextRef.current) return
-    prevTextRef.current = text
-    scrambleTo(text, swapDuration)
+  useEffect(() => () => cancelRef.current?.(), [])
 
-    return stop
-  }, [text, swapDuration])
+  const sharedProps = {
+    className,
+    'data-no-scramble': true,
+    children: display,
+    style: {
+      display: 'inline-block' as const,
+      minWidth: `${Math.max(text.length, 1)}ch`,
+      whiteSpace: 'nowrap' as const,
+    },
+  }
 
-  useEffect(() => stop, [])
+  if (as === 'a' && href) {
+    return (
+      <a
+        href={href}
+        {...sharedProps}
+        onMouseEnter={hover ? () => play(500) : undefined}
+      />
+    )
+  }
 
   return (
     <span
-      className={className}
-      onMouseEnter={() => scrambleTo(targetRef.current, hoverDuration)}
-      aria-label={text}
-    >
-      {display}
-    </span>
+      {...sharedProps}
+      onMouseEnter={hover ? () => play(500) : undefined}
+    />
   )
 }

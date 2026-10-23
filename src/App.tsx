@@ -1,5 +1,6 @@
 import { ThemeProvider } from './context/ThemeContext'
 import { LanguageProvider } from './context/LanguageContext'
+import LangScrambleRoot from './components/LangScrambleRoot'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import About from './components/About'
@@ -13,18 +14,20 @@ export default function App() {
   return (
     <ThemeProvider>
       <LanguageProvider>
-        <div className="site-grain min-h-screen">
-          <Navbar />
-          <main>
-            <Hero />
-            <About />
-            <Work />
-            <Skills />
-            <Projects />
-            <Contact />
-          </main>
-          <Footer />
-        </div>
+        <LangScrambleRoot>
+          <div className="site-grain min-h-screen">
+            <Navbar />
+            <main>
+              <Hero />
+              <About />
+              <Work />
+              <Skills />
+              <Projects />
+              <Contact />
+            </main>
+            <Footer />
+          </div>
+        </LangScrambleRoot>
       </LanguageProvider>
     </ThemeProvider>
   )
