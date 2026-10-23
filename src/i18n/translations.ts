@@ -80,9 +80,14 @@ export const translations = {
       title: 'Contact',
       lead: 'Describe the task briefly — I will reply, say whether I can help, and outline timelines and cost.',
       handle: '@DavidTsymbalov',
+      github: 'GitHub',
+      teamTitle: 'A strong product team',
+      teamText:
+        'I work alongside a focused product unit — design, engineering, and delivery aligned around clear goals. High standards, clean execution, and results that hold up in real use.',
     },
     footer: {
       telegram: 'Telegram',
+      github: 'GitHub',
     },
   },
   ru: {
@@ -164,9 +169,14 @@ export const translations = {
       title: 'Контакты',
       lead: 'Опишите задачу кратко — я отвечу и сообщу, смогу ли помочь, а также уточню сроки и стоимость.',
       handle: '@DavidTsymbalov',
+      github: 'GitHub',
+      teamTitle: 'Сильная продуктовая команда',
+      teamText:
+        'Работаю в собранном продуктовом отделе — дизайн, разработка и запуск связаны общими целями. Высокий уровень, аккуратное исполнение и результат, который держится в реальном использовании.',
     },
     footer: {
       telegram: 'Telegram',
+      github: 'GitHub',
     },
   },
 } as const

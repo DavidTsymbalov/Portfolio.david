@@ -28,9 +28,13 @@ export default function ScrambleText({
 
   const play = (duration: number) => {
     cancelRef.current?.()
+    const len = Array.from(textRef.current).filter((c) => /\p{L}/u.test(c)).length
+    // Scramble only the last 2–4 letters (never the whole word)
+    const tailLength = Math.min(4, Math.max(2, Math.ceil(len * 0.35)))
     cancelRef.current = runScramble(textRef.current, {
       duration,
       interval: 24,
+      tailLength,
       onFrame: setDisplay,
     })
   }

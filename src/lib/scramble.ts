@@ -79,15 +79,27 @@ export function scrambleText(text: string): string {
 export type ScrambleOptions = {
   duration?: number
   interval?: number
+  /** How many trailing letters to scramble (rest of the word stays fixed). */
+  tailLength?: number
   onFrame?: (value: string) => void
 }
 
-/** Animates text from scramble → final. Returns cancel fn. */
+function scrambleTailIndices(chars: string[], tailLength: number): Set<number> {
+  const letterIdx: number[] = []
+  chars.forEach((ch, i) => {
+    if (/\p{L}/u.test(ch)) letterIdx.push(i)
+  })
+  const from = Math.max(0, letterIdx.length - tailLength)
+  return new Set(letterIdx.slice(from))
+}
+
+/** Animates only the last few letters → final. Returns cancel fn. */
 export function runScramble(
   text: string,
-  { duration = 420, interval = 28, onFrame }: ScrambleOptions = {},
+  { duration = 420, interval = 28, tailLength = 3, onFrame }: ScrambleOptions = {},
 ): () => void {
   const chars = Array.from(text)
+  const scrambleIdx = scrambleTailIndices(chars, tailLength)
   const started = performance.now()
   let timer: number | undefined
   let raf = 0
@@ -97,12 +109,15 @@ export function runScramble(
     if (cancelled) return
     const elapsed = performance.now() - started
     const progress = Math.min(1, elapsed / duration)
-    const revealCount = Math.floor(progress * chars.length)
+    // Reveal scrambled tail left→right within the tail only
+    const scrambleList = [...scrambleIdx].sort((a, b) => a - b)
+    const revealInTail = Math.floor(progress * scrambleList.length)
+    const revealed = new Set(scrambleList.slice(0, revealInTail))
 
     const next = chars
       .map((ch, i) => {
-        if (!ch.trim()) return ch
-        if (i < revealCount) return ch
+        if (!scrambleIdx.has(i)) return ch
+        if (revealed.has(i)) return ch
         return scrambleChar(ch)
       })
       .join('')
