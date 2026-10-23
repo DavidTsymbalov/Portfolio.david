@@ -53,9 +53,9 @@ export default function Contact() {
                 href={GITHUB_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-[48px] w-full items-center justify-center gap-2.5 rounded-full border border-neutral-300 bg-transparent px-7 py-3 text-[0.95rem] font-medium transition-colors hover:border-ink hover:bg-ink hover:text-white dark:border-neutral-700 dark:hover:border-white dark:hover:bg-white dark:hover:text-ink sm:min-h-[52px] sm:w-auto sm:px-8 sm:text-base"
+                className="btn-github group w-full sm:w-auto"
               >
-                <GitHubIcon className="h-[1.15rem] w-[1.15rem]" />
+                <GitHubIcon className="btn-github-icon h-[1.15rem] w-[1.15rem]" />
                 {t.contact.github}
               </a>
             </div>

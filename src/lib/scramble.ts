@@ -79,27 +79,40 @@ export function scrambleText(text: string): string {
 export type ScrambleOptions = {
   duration?: number
   interval?: number
-  /** How many trailing letters to scramble (rest of the word stays fixed). */
-  tailLength?: number
+  /**
+   * Keep the first letter of each word fixed; scramble the rest.
+   * (e.g. Working → Wxxxxxx → Working)
+   */
+  keepFirstLetter?: boolean
   onFrame?: (value: string) => void
 }
 
-function scrambleTailIndices(chars: string[], tailLength: number): Set<number> {
-  const letterIdx: number[] = []
+/** Indices of letters to scramble (all letters except first of each word). */
+function scrambleIndices(chars: string[], keepFirstLetter: boolean): Set<number> {
+  const out = new Set<number>()
+  let atWordStart = true
   chars.forEach((ch, i) => {
-    if (/\p{L}/u.test(ch)) letterIdx.push(i)
+    if (!/\p{L}/u.test(ch)) {
+      atWordStart = true
+      return
+    }
+    if (keepFirstLetter && atWordStart) {
+      atWordStart = false
+      return
+    }
+    atWordStart = false
+    out.add(i)
   })
-  const from = Math.max(0, letterIdx.length - tailLength)
-  return new Set(letterIdx.slice(from))
+  return out
 }
 
-/** Animates only the last few letters → final. Returns cancel fn. */
+/** Quick letter scramble → final. Returns cancel fn. */
 export function runScramble(
   text: string,
-  { duration = 420, interval = 28, tailLength = 3, onFrame }: ScrambleOptions = {},
+  { duration = 260, interval = 16, keepFirstLetter = true, onFrame }: ScrambleOptions = {},
 ): () => void {
   const chars = Array.from(text)
-  const scrambleIdx = scrambleTailIndices(chars, tailLength)
+  const scrambleIdx = scrambleIndices(chars, keepFirstLetter)
   const started = performance.now()
   let timer: number | undefined
   let raf = 0
@@ -109,10 +122,9 @@ export function runScramble(
     if (cancelled) return
     const elapsed = performance.now() - started
     const progress = Math.min(1, elapsed / duration)
-    // Reveal scrambled tail left→right within the tail only
     const scrambleList = [...scrambleIdx].sort((a, b) => a - b)
-    const revealInTail = Math.floor(progress * scrambleList.length)
-    const revealed = new Set(scrambleList.slice(0, revealInTail))
+    const revealCount = Math.floor(progress * scrambleList.length)
+    const revealed = new Set(scrambleList.slice(0, revealCount))
 
     const next = chars
       .map((ch, i) => {

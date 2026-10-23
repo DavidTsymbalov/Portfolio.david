@@ -109,6 +109,18 @@
     @apply bg-white text-ink hover:bg-neutral-200;
   }
 
+  .btn-github {
+    @apply inline-flex min-h-[48px] items-center justify-center gap-2.5 rounded-full border border-neutral-300 bg-transparent px-7 py-3 text-[0.95rem] font-medium transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-ink hover:bg-ink hover:text-white hover:shadow-lg hover:shadow-black/15 dark:border-neutral-700 dark:hover:border-white dark:hover:bg-white dark:hover:text-ink dark:hover:shadow-white/10 sm:min-h-[52px] sm:px-8 sm:text-base;
+  }
+
+  .btn-github-icon {
+    @apply transition-transform duration-300 ease-out;
+  }
+
+  .btn-github:hover .btn-github-icon {
+    transform: rotate(-12deg) scale(1.08);
+  }
+
   .section-pad {
     @apply py-20 sm:py-28 lg:py-36;
   }

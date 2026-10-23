@@ -4,13 +4,13 @@ import { LANG_SCRAMBLE_EVENT, runScramble } from '../lib/scramble'
 type Props = {
   text: string
   className?: string
-  /** Scramble on pointer hover (nav links) */
   hover?: boolean
-  /** Scramble when the text itself changes (language switch) */
   onLangChange?: boolean
   as?: 'span' | 'a'
   href?: string
 }
+
+const FAST_MS = 240
 
 export default function ScrambleText({
   text,
@@ -26,15 +26,12 @@ export default function ScrambleText({
   const readyRef = useRef(false)
   textRef.current = text
 
-  const play = (duration: number) => {
+  const play = (duration = FAST_MS) => {
     cancelRef.current?.()
-    const len = Array.from(textRef.current).filter((c) => /\p{L}/u.test(c)).length
-    // Scramble only the last 2–4 letters (never the whole word)
-    const tailLength = Math.min(4, Math.max(2, Math.ceil(len * 0.35)))
     cancelRef.current = runScramble(textRef.current, {
       duration,
-      interval: 24,
-      tailLength,
+      interval: 14,
+      keepFirstLetter: true,
       onFrame: setDisplay,
     })
   }
@@ -47,14 +44,14 @@ export default function ScrambleText({
       return
     }
     if (onLangChange) {
-      const id = window.setTimeout(() => play(400), 20)
+      const id = window.setTimeout(() => play(FAST_MS), 16)
       return () => window.clearTimeout(id)
     }
   }, [text, onLangChange])
 
   useEffect(() => {
     if (!onLangChange) return
-    const onEvent = () => play(400)
+    const onEvent = () => play(FAST_MS)
     window.addEventListener(LANG_SCRAMBLE_EVENT, onEvent)
     return () => window.removeEventListener(LANG_SCRAMBLE_EVENT, onEvent)
   }, [onLangChange])
@@ -77,7 +74,7 @@ export default function ScrambleText({
       <a
         href={href}
         {...sharedProps}
-        onMouseEnter={hover ? () => play(500) : undefined}
+        onMouseEnter={hover ? () => play(FAST_MS) : undefined}
       />
     )
   }
@@ -85,7 +82,7 @@ export default function ScrambleText({
   return (
     <span
       {...sharedProps}
-      onMouseEnter={hover ? () => play(500) : undefined}
+      onMouseEnter={hover ? () => play(FAST_MS) : undefined}
     />
   )
 }
